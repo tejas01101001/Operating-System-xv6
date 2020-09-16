@@ -1,0 +1,11 @@
+ex2
+cmpw compare 2 operands
+jne The jnz (or jne) instruction is a conditional jump that follows a test. It jumps to the specified location if the Zero Flag (ZF) is cleared (0). jnz is commonly used to explicitly test for something not being equal to zero whereas jne is commonly found after a cmp instruction.
+xor 
+mov
+jmp
+cli Clear interrupt flag; interrupts disabled when interrupt flag cleared.
+cld Clear direction flag The direction flag is a flag that controls the left-to-right or right-to-left direction of string processing,[1] stored in the FLAGS register on all x86-compatible CPUs.[2] It is bit number 10.
+This flag is used to determine the direction ('forward' or 'backward') in which several bytes of data will be copied from one place in the memory, to another. The direction is important mainly when the original data position in memory and the target data position overlap.
+out write to a port
+in read from a port
