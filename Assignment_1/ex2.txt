@@ -9,3 +9,20 @@ cld Clear direction flag The direction flag is a flag that controls the left-to-
 This flag is used to determine the direction ('forward' or 'backward') in which several bytes of data will be copied from one place in the memory, to another. The direction is important mainly when the original data position in memory and the target data position overlap.
 out write to a port
 in read from a port
+
+
+cmd 					opcode	PC		function
+ljmp $0x3630, $0xf000e05b		ljmp	0xffff0 	jump "far" to specified address given by segment and offset respectively
+cmpw $0xffc8, %cs:(%esi)		cmpw	0xfe05b	compare two operands at specified address
+jne 0xd241d0b2				jne	0xfe062	conditional jump, to check if result of previous cmp function is true or false
+xor %edx, %edx 			xor	0xfe066	take xor of the two operands, in this case set value in edx to zero
+mov %edx, %ss				mov	0xfe068	loads value in register ss (stack segment) with value in edx i.e. 0
+mov $0x7000, %sp			mov	0xfe070	loads value 0x7000 in register sp
+mov $0x7c4, %dx			mov	0xfe072	loads value 0x7c4 in register dx
+jmp 0x5576cf26				jmp 	0xfe076	jump to the address stored in the memory address given
+cli					cli	0xfcf24	Clear interrupt flag; interrupts disabled when interrupt flag cleared.
+cld					cld	0xfcf25	Clear direction flag The direction flag is a flag that controls the left-to-right or right-to-left direction of string processing
+mov %ax,%cx				mov	0xfcf26	loads value in register ax with value in cx
+mov $0x8f,%ax				mov	0xfcf29	loads value 0x8f in register ax
+
+
