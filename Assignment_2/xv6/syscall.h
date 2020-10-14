@@ -20,12 +20,8 @@
 #define SYS_link   19
 #define SYS_mkdir  20
 #define SYS_close  21
-// defined a macro for SYS_woflie as the system call number i.e 22
-#define SYS_wolfie 22
-
-#define SYS_hello 23
-#define SYS_getNumProc 24
-#define SYS_getMaxPid 25
-#define SYS_getProcInfo 26
-#define SYS_set_burst_time 27
-#define SYS_get_burst_time 28
+#define SYS_getNumProc  22
+#define SYS_getMaxPid  23
+#define SYS_getProcInfo 24
+#define SYS_set_burst_time  25
+#define SYS_get_burst_time  26

@@ -2,10 +2,8 @@
 #include "stat.h"
 #include "user.h"
 
-int main(int argc, char* argv[])
+int main(void)
 {
-
-	int nproc = getNumProc();
-	printf(1, "Number of Processes: %d\n", nproc);
-  exit();
+	printf(1, "Number of currently active processes: %d\n", getNumProc());
+	exit();
 }

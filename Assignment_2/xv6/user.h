@@ -1,6 +1,6 @@
-struct processInfo;
 struct stat;
 struct rtcdate;
+struct processInfo;
 
 // system calls
 int fork(void);
@@ -24,14 +24,10 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-// sytem call created which copies the ASCII image of wolf picture
-// Arguments as given in the assignment
-int wolfie(void *buf, uint size);
-int hello(char*);
 int getNumProc(void);
 int getMaxPid(void);
 int getProcInfo(int pid, struct processInfo*);
-int set_burst_time(int);
+int set_burst_time(int n);
 int get_burst_time(void);
 
 // ulib.c
@@ -47,5 +43,3 @@ void* memset(void*, int, uint);
 void* malloc(uint);
 void free(void*);
 int atoi(const char*);
-
-

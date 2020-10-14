@@ -181,18 +181,13 @@ UPROGS=\
 	_usertests\
 	_wc\
 	_zombie\
-	_test_scheduler\
 	_getNumProc\
 	_getMaxPid\
 	_getProcInfo\
 	_set_burst_time\
 	_get_burst_time\
-	
-
-# Makefile needs to be edited before our program i.e 
-# wolfietest.c is available for xv6 source code for compilation
-# Here UPROGS means the user programs 
-
+	_test_one\
+	_test_two\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)

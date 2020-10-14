@@ -109,10 +109,6 @@ void            exit(void);
 int             fork(void);
 int             growproc(int);
 int             kill(int);
-int             getNumProc(void);
-int             getMaxPid(void);
-int             getProcInfo(int, struct processInfo*);
-int             set_burst_time(int);
 struct cpu*     mycpu(void);
 struct proc*    myproc();
 void            pinit(void);
@@ -125,6 +121,11 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
+// Added for assignment 2
+int             getNumProc(void);
+int             getMaxPid(void);
+int             getProcInfo(int, struct processInfo*);
+int             set_burst_time(int);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

@@ -3,8 +3,9 @@
 #include "user.h"
 
 int main(int argc, char* argv[])
-{
-	int bt = get_burst_time();
-	printf(1, "Burst time: %d\n", bt);
-  exit();
+{   	
+    	int n = get_burst_time();
+    	printf(2, "burst_time: %d\n", n);
+	
+	exit();	
 }
