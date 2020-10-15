@@ -31,7 +31,7 @@ int main()
 					y += 10;
 				}
 				x = y;
-				printf(1, "CPU Bound / ");
+				printf(1, "CPU Bound (pid: %d)/ ", getpid());
 			}
 			
 			// IO bound process
@@ -42,7 +42,7 @@ int main()
 				{
 					sleep(1);
 				}
-				printf(1, "IO Bound / ");
+				printf(1, "IO Bound (pid: %d)/ ", getpid());
 			}
 			
 			x = get_burst_time();
