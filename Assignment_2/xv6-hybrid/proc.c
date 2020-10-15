@@ -90,7 +90,9 @@ found:
   p->state = EMBRYO;
   p->pid = nextpid++;
   p->contextswitches = 0;
-  p->burst = 2;
+  p->burst = 1;
+  p->time_slice = 1;
+  p->first_proc = 0;
   
 
   release(&ptable.lock);
@@ -425,47 +427,51 @@ scheduler(void)
 }*/
 
 
+
 void
 scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
   c->proc = 0;
-  
+  int flag = 1;
   for(;;){
     // Enable interrupts on this processor.
     sti();
     
-		acquire(&ptable.lock);
-		
-		// Set up Ready Queue
-		struct proc * RQ[NPROC];
-		
-		int k = 0;
-		
-		for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+	acquire(&ptable.lock);
+	
+	// Set up Ready Queue
+	struct proc * RQ[NPROC];
+	
+	int k = 0;
+	
+	for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+	{
+		if(p->state == RUNNABLE)
 		{
-			if(p->state == RUNNABLE)
+			RQ[k++] = p;
+		}
+	}
+	struct proc *t;
+	// Sort Ready Queue
+	for (int i = 0; i < k; i++)
+	{
+		for(int j = i + 1; j < k; j++)
+		{
+			if(RQ[i]->burst > RQ[j]->burst)
 			{
-				RQ[k++] = p;
+				t = RQ[i];
+				RQ[i] = RQ[j];
+				RQ[j] = t;
 			}
 		}
-		
-		struct proc *t;
-		// Sort Ready Queue
-		for (int i = 0; i < k; i++)
-		{
-			for(int j = i + 1; j < k; j++)
-			{
-				if(RQ[i]->burst > RQ[j]->burst)
-				{
-					t = RQ[i];
-					RQ[i] = RQ[j];
-					RQ[j] = t;
-				}
-			}
-		}
-		
+	}
+	if(k && flag)
+	{
+		RQ[0]->first_proc = 1;
+		flag = 0;
+	}
 		
 
 		// Find the job with least burst time

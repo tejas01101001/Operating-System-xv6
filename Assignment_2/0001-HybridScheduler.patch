@@ -1,0 +1,226 @@
+From 2b99679205a4a2d659ab6da16c4efd1b0a2f2023 Mon Sep 17 00:00:00 2001
+From: PoojaB01 <pooja.bhagat2000@gmail.com>
+Date: Thu, 15 Oct 2020 18:02:15 +0530
+Subject: [PATCH] HybridScheduler
+
+---
+ proc.c     | 87 +++++++++++++++++++++++++++++++++++++++++++++++++++---
+ proc.h     |  2 ++
+ sysproc.c  |  5 ----
+ test_one.c |  2 ++
+ trap.c     | 26 ++++++++++++++--
+ 5 files changed, 110 insertions(+), 12 deletions(-)
+
+diff --git a/proc.c b/proc.c
+index 9517f84..c8cc091 100644
+--- a/proc.c
++++ b/proc.c
+@@ -81,7 +81,7 @@ allocproc(void)
+ 
+   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+     if(p->state == UNUSED)
+-      goto found;
++      	goto found;
+ 
+   release(&ptable.lock);
+   return 0;
+@@ -90,7 +90,10 @@ found:
+   p->state = EMBRYO;
+   p->pid = nextpid++;
+   p->contextswitches = 0;
+-  p->burst = 0;
++  p->burst = 1;
++  p->time_slice = 1;
++  p->first_proc = 0;
++  
+ 
+   release(&ptable.lock);
+ 
+@@ -363,9 +366,8 @@ scheduler(void)
+ }*/
+ 
+ 
+-
+ // Shortest Job First Scheduler
+-void
++/*void
+ scheduler(void)
+ {
+   struct proc *p;
+@@ -422,6 +424,83 @@ scheduler(void)
+     }
+     release(&ptable.lock);
+   }
++}*/
++
++
++
++void
++scheduler(void)
++{
++  struct proc *p;
++  struct cpu *c = mycpu();
++  c->proc = 0;
++  int flag = 1;
++  for(;;){
++    // Enable interrupts on this processor.
++    sti();
++    
++	acquire(&ptable.lock);
++	
++	// Set up Ready Queue
++	struct proc * RQ[NPROC];
++	
++	int k = 0;
++	
++	for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
++	{
++		if(p->state == RUNNABLE)
++		{
++			RQ[k++] = p;
++		}
++	}
++	struct proc *t;
++	// Sort Ready Queue
++	for (int i = 0; i < k; i++)
++	{
++		for(int j = i + 1; j < k; j++)
++		{
++			if(RQ[i]->burst > RQ[j]->burst)
++			{
++				t = RQ[i];
++				RQ[i] = RQ[j];
++				RQ[j] = t;
++			}
++		}
++	}
++	if(k && flag)
++	{
++		RQ[0]->first_proc = 1;
++		flag = 0;
++	}
++		
++
++		// Find the job with least burst time
++    for (int i = 0; i < k; i++)
++    {
++    	p = RQ[i];
++		  if (p->state == RUNNABLE)
++		  {
++		    // cprintf("BT %d \n", i);
++		    // Switch to chosen process.  It is the process's job
++		    // to release ptable.lock and then reacquire it
++		    // before jumping back to us.
++		    c->proc = p;
++		    switchuvm(p);
++		    p->state = RUNNING;
++
++		    swtch(&(c->scheduler), p->context);
++		    
++		    // increment number of context switches
++		    p->contextswitches = p->contextswitches + 1;
++		    switchkvm();
++
++		    // Process is done running for now.
++		    // It should have changed its p->state before coming back.
++		    c->proc = 0;
++		  }
++		 }
++		  release(&ptable.lock);
++  }
+ }
+ 
+ // Enter scheduler.  Must hold only ptable.lock
+diff --git a/proc.h b/proc.h
+index 714f09e..543db85 100644
+--- a/proc.h
++++ b/proc.h
+@@ -51,6 +51,8 @@ struct proc {
+   char name[16];               // Process name (debugging)
+   int contextswitches;		// store number of context switches
+   int burst;			// store approximate burst time for sjf scheduling
++  int time_slice; 		// for time quanta
++  int first_proc;		// to indicate shortest process
+ };
+ 
+ // Process memory is laid out contiguously, low addresses first:
+diff --git a/sysproc.c b/sysproc.c
+index 1caf567..8db0618 100644
+--- a/sysproc.c
++++ b/sysproc.c
+@@ -50,11 +50,6 @@ sys_set_burst_time()
+   if(argint(0, &bt) < 0)
+       return -1;
+       
+-  if(bt <= 0)
+-  {
+-  	return -1;
+-  }
+-      
+ 	set_burst_time(bt);
+ 	
+   return 0;
+diff --git a/test_one.c b/test_one.c
+index 4c269b0..7c3013f 100644
+--- a/test_one.c
++++ b/test_one.c
+@@ -48,9 +48,11 @@ int main()
+ 			}
+ 			
+ 			x = get_burst_time();
++			
+ 			struct processInfo *info;
+ 			info = (struct processInfo*) malloc(sizeof(struct processInfo));
+ 			getProcInfo(getpid(), info);
++			
+ 			printf(1, "Burst Time: %d Context Switches: %d\n", x, info->numberContextSwitches);
+ 			exit();
+ 						
+diff --git a/trap.c b/trap.c
+index c462eb6..384bdf2 100644
+--- a/trap.c
++++ b/trap.c
+@@ -14,6 +14,9 @@ extern uint vectors[];  // in vectors.S: array of 256 entry pointers
+ struct spinlock tickslock;
+ uint ticks;
+ 
++int time_quanta = -1;
++int first_pid = -1;
++
+ void
+ tvinit(void)
+ {
+@@ -102,10 +105,27 @@ trap(struct trapframe *tf)
+ 
+   // Force process to give up CPU on clock tick.
+   // If interrupts were on while locks held, would need to check nlock.
+-  /*if(myproc() && myproc()->state == RUNNING &&
++  if(myproc() && myproc()->state == RUNNING &&
+      tf->trapno == T_IRQ0+IRQ_TIMER)
+-    yield();
+-    */
++  {
++  	if(myproc()->first_proc && (first_pid == -1 || first_pid == myproc()->pid))
++  	{
++  		myproc()->time_slice++;
++  		time_quanta = myproc()->time_slice + 1;
++  		first_pid = myproc()->pid;
++  	}
++  	else 
++  	{
++	  	if(myproc()->time_slice < time_quanta)
++	  	{
++	  		myproc()->time_slice++;
++	  	}
++	  	else {
++	  		myproc()->time_slice = 0;
++	  		yield();
++	  	}
++  	}
++  }
+   // Check if the process has been killed since we yielded
+   if(myproc() && myproc()->killed && (tf->cs&3) == DPL_USER)
+     exit();
+-- 
+2.25.1
+

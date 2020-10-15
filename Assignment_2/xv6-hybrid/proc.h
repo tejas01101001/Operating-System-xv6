@@ -51,6 +51,8 @@ struct proc {
   char name[16];               // Process name (debugging)
   int contextswitches;		// store number of context switches
   int burst;			// store approximate burst time for sjf scheduling
+  int time_slice; 		// for time quanta
+  int first_proc;		// to indicate shortest process
 };
 
 // Process memory is laid out contiguously, low addresses first:
