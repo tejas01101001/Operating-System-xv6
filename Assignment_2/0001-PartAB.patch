@@ -1,6 +1,6 @@
-From 7d790f8a0bd9735686cb2b883dde14ae32ab2913 Mon Sep 17 00:00:00 2001
+From a096e7cd8aeaeb4a5f727b6ca4b5fa0c096d698c Mon Sep 17 00:00:00 2001
 From: PoojaB01 <pooja.bhagat2000@gmail.com>
-Date: Thu, 15 Oct 2020 17:58:53 +0530
+Date: Thu, 15 Oct 2020 19:03:55 +0530
 Subject: [PATCH] PartAB
 
 ---
@@ -9,12 +9,11 @@ Subject: [PATCH] PartAB
  getMaxPid.c      |  14 +++++
  getNumProc.c     |   9 ++++
  getProcInfo.c    |  30 +++++++++++
- get_burst_time.c |  11 ++++
  param.h          |   3 +-
  proc.c           | 137 ++++++++++++++++++++++++++++++++++++++++++++++-
  proc.h           |   2 +
  processInfo.h    |   6 +++
- set_burst_time.c |  23 ++++++++
+ set_burst_time.c |  25 +++++++++
  syscall.c        |  10 ++++
  syscall.h        |   5 ++
  sysproc.c        |  61 +++++++++++++++++++++
@@ -23,11 +22,10 @@ Subject: [PATCH] PartAB
  trap.c           |   4 +-
  user.h           |   6 +++
  usys.S           |   5 ++
- 19 files changed, 458 insertions(+), 5 deletions(-)
+ 18 files changed, 449 insertions(+), 5 deletions(-)
  create mode 100644 getMaxPid.c
  create mode 100644 getNumProc.c
  create mode 100644 getProcInfo.c
- create mode 100644 get_burst_time.c
  create mode 100644 processInfo.h
  create mode 100644 set_burst_time.c
  create mode 100644 test_one.c
@@ -145,23 +143,6 @@ index 0000000..e157678
 +  	}
 +  	
 +  	exit();
-+}
-diff --git a/get_burst_time.c b/get_burst_time.c
-new file mode 100644
-index 0000000..dd78b78
---- /dev/null
-+++ b/get_burst_time.c
-@@ -0,0 +1,11 @@
-+#include "types.h"
-+#include "stat.h"
-+#include "user.h"
-+
-+int main(int argc, char* argv[])
-+{   	
-+    	int n = get_burst_time();
-+    	printf(2, "burst_time: %d\n", n);
-+	
-+	exit();	
 +}
 diff --git a/param.h b/param.h
 index a7e90ef..cea429c 100644
@@ -387,10 +368,10 @@ index 0000000..e24eb68
 +};
 diff --git a/set_burst_time.c b/set_burst_time.c
 new file mode 100644
-index 0000000..00c1528
+index 0000000..feaf553
 --- /dev/null
 +++ b/set_burst_time.c
-@@ -0,0 +1,23 @@
+@@ -0,0 +1,25 @@
 +#include "types.h"
 +#include "stat.h"
 +#include "user.h"
@@ -411,6 +392,8 @@ index 0000000..00c1528
 +    		printf(2, "set_burst_time failed\n");
 +		exit();
 +	}
++	
++	printf(1, "Burst time set to %d.\n", get_burst_time());
 +	
 +	exit();
 +}	

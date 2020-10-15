@@ -19,5 +19,7 @@ int main(int argc, char* argv[])
 		exit();
 	}
 	
+	printf(1, "Burst time set to %d.\n", get_burst_time());
+	
 	exit();
 }	
