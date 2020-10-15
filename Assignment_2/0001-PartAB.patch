@@ -1,10 +1,10 @@
-From a096e7cd8aeaeb4a5f727b6ca4b5fa0c096d698c Mon Sep 17 00:00:00 2001
+From 65820c840df59904ec21bfaa9a3938f927670ee1 Mon Sep 17 00:00:00 2001
 From: PoojaB01 <pooja.bhagat2000@gmail.com>
-Date: Thu, 15 Oct 2020 19:03:55 +0530
+Date: Thu, 15 Oct 2020 19:22:45 +0530
 Subject: [PATCH] PartAB
 
 ---
- Makefile         |   7 +++
+ Makefile         |   6 +++
  defs.h           |   6 +++
  getMaxPid.c      |  14 +++++
  getNumProc.c     |   9 ++++
@@ -22,7 +22,7 @@ Subject: [PATCH] PartAB
  trap.c           |   4 +-
  user.h           |   6 +++
  usys.S           |   5 ++
- 18 files changed, 449 insertions(+), 5 deletions(-)
+ 18 files changed, 448 insertions(+), 5 deletions(-)
  create mode 100644 getMaxPid.c
  create mode 100644 getNumProc.c
  create mode 100644 getProcInfo.c
@@ -32,10 +32,10 @@ Subject: [PATCH] PartAB
  create mode 100644 test_two.c
 
 diff --git a/Makefile b/Makefile
-index 09d790c..64ebd22 100644
+index 09d790c..8c52405 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -181,6 +181,13 @@ UPROGS=\
+@@ -181,6 +181,12 @@ UPROGS=\
  	_usertests\
  	_wc\
  	_zombie\
@@ -43,7 +43,6 @@ index 09d790c..64ebd22 100644
 +	_getMaxPid\
 +	_getProcInfo\
 +	_set_burst_time\
-+	_get_burst_time\
 +	_test_one\
 +	_test_two\
  

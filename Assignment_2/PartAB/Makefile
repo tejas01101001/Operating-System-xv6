@@ -185,7 +185,6 @@ UPROGS=\
 	_getMaxPid\
 	_getProcInfo\
 	_set_burst_time\
-	_get_burst_time\
 	_test_one\
 	_test_two\
 
