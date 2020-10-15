@@ -50,6 +50,11 @@ sys_set_burst_time()
   if(argint(0, &bt) < 0)
       return -1;
       
+  if(bt <= 0)
+  {
+  	return -1;
+  }
+      
 	set_burst_time(bt);
 	
   return 0;

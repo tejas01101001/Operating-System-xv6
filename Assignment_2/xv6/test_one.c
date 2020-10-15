@@ -2,11 +2,12 @@
 #include "stat.h"
 #include "user.h"
 
+#include "processInfo.h"
 int main()
 {	
 	// array containing burst times
 	int t[10] = {40, 70, 10, 90, 60, 30, 20, 80, 100, 50};
-	int x = 0;
+	long x = 0;
 	set_burst_time(1);
 	
 	for(int i=0; i<10; i++)
@@ -23,15 +24,16 @@ int main()
 			// CPU bound process
 			if(i%2 == 0)
 			{
-				int y = 0;
+				double y = 0;
 				
 				// code to add delay
-				for(int i2=0; i2<t[i]*100000000; i2++)
+				for(int i2=0; i2<t[i]*1000000/2; i2++)
 				{
-					y += 10;
+					y += 2.69*13.01;
 				}
 				x = y;
-				printf(1, "CPU Bound (pid: %d)/ ", getpid());
+				
+				printf(1, "CPU Bound(%d) / ",  x);
 			}
 			
 			// IO bound process
@@ -42,12 +44,14 @@ int main()
 				{
 					sleep(1);
 				}
-				printf(1, "IO Bound (pid: %d)/ ", getpid());
+				printf(1, "IO Bound / ");
 			}
 			
 			x = get_burst_time();
-			
-			printf(1, "Burst Time: %d \n", x);
+			struct processInfo *info;
+			info = (struct processInfo*) malloc(sizeof(struct processInfo));
+			getProcInfo(getpid(), info);
+			printf(1, "Burst Time: %d Context Switches: %d\n", x, info->numberContextSwitches);
 			exit();
 						
 		}
