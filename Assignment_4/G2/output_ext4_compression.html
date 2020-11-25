@@ -1,0 +1,67 @@
+<title>Vdbench output/summary.html</title><pre>
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+Vdbench summary report, created 02:10:55 Nov 26 2020 IST (20:40:55 Nov 25 2020 UTC)
+
+Link to logfile:                 <A HREF="logfile.html">logfile</A>
+Run totals:                      <A HREF="totals.html">totals</A>
+Vdbench status:                  <A HREF="status.html">status</A>
+Copy of input parameter files:   <A HREF="parmfile.html">parmfile</A>
+Copy of parameter scan detail:   <A HREF="parmscan.html">parmscan</A>
+Link to errorlog:                <A HREF="errorlog.html">errorlog</A>
+Link to flatfile:                <A HREF="flatfile.html">flatfile</A>
+Link to anchor status:           <A HREF="anchors.html">anchors</A>
+
+Link to HOST reports:            <A HREF="localhost.html">localhost</A>
+Link to FSD reports:             <A HREF="fsd1.html">fsd1</A>    
+Link to FWD reports:             <A HREF="format.html">format</A>   <A HREF="fwd1.html">fwd1</A>    
+Link to response time histogram: <A HREF="histogram.html">histogram</A>
+Link to workload skew report:    <A HREF="skew.html">skew</A>
+Link to anchor report:           <A HREF="anchors.html">anchors</A>
+
+Link to Run Definitions:         <A HREF="#_846063400">format_for_rd1 For loops: None</A>
+                                 <A HREF="#_627150481">rd1 For loops: None</A>
+
+Link to config output:           <A HREF="config.html">config</A>
+
+<a name="_846063400"></a><i><b>02:11:00.003 Starting RD=format_for_rd1</b></i>
+
+
+Nov 26, 2020 ..Interval.. .ReqstdOps... ...cpu%...  read ....read..... ....write.... ..mb/sec... mb/sec .xfer.. ...mkdir.... ...rmdir.... ...create... ....open.... ...close.... ...delete...
+                            rate   resp total  sys   pct   rate   resp   rate   resp  read write  total    size  rate   resp  rate   resp  rate   resp  rate   resp  rate   resp  rate   resp
+02:11:04.318            1 2251.0  4.426  73.9 24.6   0.0    0.0  0.000 2251.0  4.426  0.00 281.3 281.38  131072   6.0  3.268   0.0  0.000   0.0  0.000   8.0  0.452   0.0  0.000   0.0  0.000
+02:11:05.795            2 1262.0  9.495  84.8 44.0   0.0    0.0  0.000 1262.0  9.495  0.00 157.7 157.75  131072   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:06.123            3  385.0  8.556  82.1 44.6   0.0    0.0  0.000  385.0  8.556  0.00 48.12  48.12  131072   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:06.340            4  504.0  7.665  81.1 47.1   0.0    0.0  0.000  504.0  7.665  0.00 65.38  65.38  136013   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:06.486            5 1016.0  7.362  86.4 48.1   0.0    0.0  0.000 1016.0  7.362  0.00 127.0 127.00  131072   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:06.608            6  963.0  4.277  87.6 44.2   0.0    0.0  0.000  963.0  4.277  0.00 120.3 120.38  131072   0.0  0.000   0.0  0.000   8.0 5403.5   0.0  0.000   8.0  0.304   0.0  0.000
+02:11:07.055            7    0.0  0.000  97.9 7.22   0.0    0.0  0.000    0.0  0.000  0.00  0.00   0.00       0   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:07.128      avg_2-7  688.3  7.443  87.1 39.3   0.0    0.0  0.000  688.3  7.443  0.00 86.44  86.44  131674   0.0  0.000   0.0  0.000   1.3 5403.5   0.0  0.000   1.3  0.304   0.0  0.000
+02:11:07.129      std_2-7  471.5 30.206                                 471.5 30.206                                                        3.3 149.87                3.3  0.551             
+02:11:07.130      max_2-7 1262.0 400.70                                1262.0 400.70                                   9.812                8.0 5655.1        1.684   8.0  1.621             
+02:11:07.367 *
+02:11:07.368 ********************************************************************
+02:11:07.368 * Warning for host=localhost: average processor utilization 87.1%  *
+02:11:07.368 * Any processor utilization over 80% could mean that your system   *
+02:11:07.368 * does not have enough cycles to run the highest rate possible.    *
+02:11:07.369 ********************************************************************
+02:11:07.372 *
+
+<a name="_627150481"></a><i><b>02:11:09.001 Starting RD=rd1; elapsed=10; fwdrate=100; For loops: None</b></i>
+
+
+Nov 26, 2020 ..Interval.. .ReqstdOps... ...cpu%...  read ....read..... ....write.... ..mb/sec... mb/sec .xfer.. ...mkdir.... ...rmdir.... ...create... ....open.... ...close.... ...delete...
+                            rate   resp total  sys   pct   rate   resp   rate   resp  read write  total    size  rate   resp  rate   resp  rate   resp  rate   resp  rate   resp  rate   resp
+02:11:10.063            1   63.0  0.093  52.4 4.11 100.0   63.0  0.093    0.0  0.000  0.25  0.00   0.25    4096   0.0  0.000   0.0  0.000   0.0  0.000   2.0  0.291   0.0  0.000   0.0  0.000
+02:11:11.083            2  121.0  0.023  73.5 3.92 100.0  121.0  0.023    0.0  0.000  0.47  0.00   0.47    4096   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:12.032            3   84.0  0.025  43.0 14.0 100.0   84.0  0.025    0.0  0.000  0.33  0.00   0.33    4096   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:13.055            4  110.0  0.031  25.0 3.13 100.0  110.0  0.031    0.0  0.000  0.43  0.00   0.43    4096   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:14.028            5   97.0  0.025  35.7 3.06 100.0   97.0  0.025    0.0  0.000  0.38  0.00   0.38    4096   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:15.016            6  104.0  0.021  14.4 0.00 100.0  104.0  0.021    0.0  0.000  0.41  0.00   0.41    4096   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:16.032            7  113.0  0.018  19.4 2.04 100.0  113.0  0.018    0.0  0.000  0.44  0.00   0.44    4096   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:17.039            8  117.0  0.022  50.5 1.03 100.0  117.0  0.022    0.0  0.000  0.46  0.00   0.46    4096   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:18.026            9   91.0  0.050  37.5 8.65 100.0   91.0  0.050    0.0  0.000  0.36  0.00   0.36    4096   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:19.014           10  113.0  0.069  16.8 2.11 100.0  113.0  0.069    0.0  0.000  0.44  0.00   0.44    4096   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:19.111     avg_2-10  105.6  0.031  35.4 4.28 100.0  105.6  0.031    0.0  0.000  0.41  0.00   0.41    4096   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000   0.0  0.000
+02:11:19.112     std_2-10   12.5  0.137                    12.5  0.137                                                                                                                       
+02:11:19.113     max_2-10  121.0  3.621                   121.0  3.621                                                                                        0.372                          
+02:11:20.425 Vdbench execution completed successfully
