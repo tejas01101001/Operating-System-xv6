@@ -1,0 +1,7 @@
+fsd=fsd1,anchor=/old-pool,depth=1,width=1,files=3,size=500m
+
+fwd=default,xfersize=4k,fileio=sequential,fileselect=seq,threads=2
+fwd=fwd1,fsd=fsd1,operation=read
+fwd=fwd2,fsd=fsd1,operation=write
+
+rd=rd1,fwd=(fwd1,fwd2),fwdrate=100,format=yes,elapsed=10,interval=1
