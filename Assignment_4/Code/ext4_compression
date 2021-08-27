@@ -1,8 +1,0 @@
-compratio=10
-fsd=fsd1,anchor=/old-pool,depth=2,width=2,files=2,size=10m
-
-fwd=default,xfersize=4k,fileio=sequential,fileselect=seq,threads=2
-fwd=fwd1,fsd=fsd1,operation=read
-fwd=fwd2,fsd=fsd1,operation=write
-
-rd=rd1,fwd=(fwd1,fwd2),fwdrate=100,format=yes,elapsed=10,interval=1
